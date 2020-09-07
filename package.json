@@ -1,0 +1,17 @@
+{
+  "name": "kickheads",
+  "version": "1.0.0",
+  "description": "Soccer with heads! Tribute to the very popular Flash game.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerwant/KickHeads.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/gerwant/KickHeads",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+}
