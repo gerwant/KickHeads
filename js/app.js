@@ -7,16 +7,21 @@ var config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 100 }
+            gravity: { y: 500 }
         }
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
 var game = new Phaser.Game(config);
+var cursors;
+var player1;
+var player2;
+var ball;
 
 function preload ()
 {
@@ -25,20 +30,74 @@ function preload ()
 
 function create ()
 {
-    var ball1 = this.physics.add.image(100, 240, 'wizball');
-    var ball2 = this.physics.add.image(700, 240, 'wizball');
+    player1 = this.physics.add.sprite(100, 700, 'wizball');
+    player2 = this.physics.add.sprite(700, 700, 'wizball');
+    ball = this.physics.add.sprite(300, 0);
 
-    ball1.setCircle(46);
-    ball2.setCircle(46);
+    player1.setCircle(46);
+    player2.setCircle(46);
+    ball.setCircle(20);
 
-    ball1.setCollideWorldBounds(true);
-    ball2.setCollideWorldBounds(true);
+    player1.setCollideWorldBounds(true);
+    player2.setCollideWorldBounds(true);
+    ball.setCollideWorldBounds(true);
 
-    ball1.setBounce(1);
-    ball2.setBounce(1);
+    player1.setBounce(0);
+    player2.setBounce(0);
+    ball.setBounce(0.8);
 
-    ball1.setVelocity(150);
-    ball2.setVelocity(-200, 60);
+    player1.setMass(1)
+    player2.setMass(1)
+    ball.setMass(0.8)
 
-    this.physics.add.collider(ball1, ball2);
+ 
+
+    this.physics.add.collider(player1, player2);
+    this.physics.add.collider(ball, player2);
+    this.physics.add.collider(ball, player1);
+
+    cursors = this.input.keyboard.createCursorKeys();
+   
+    this.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    
+}
+
+function update(){
+    if (cursors.left.isDown)
+    {
+        player1.setVelocityX(-300);
+    }
+    else if (cursors.right.isDown)
+    {
+        player1.setVelocityX(300);
+    }
+    else
+    {
+        player1.setVelocityX(0);
+    }
+    if (cursors.up.isDown && player1.body.blocked.down)
+    {
+        player1.setVelocityY(-300);
+    }
+
+
+    if (this.A.isDown)
+    {
+        player2.setVelocityX(-300);
+    }
+    else if (this.D.isDown)
+    {
+        player2.setVelocityX(300);
+    }
+    else
+    {
+        player2.setVelocityX(0);
+    }
+    if (this.W.isDown && player2.body.blocked.down)
+    {
+        player2.setVelocityY(-300);
+    }
 }
