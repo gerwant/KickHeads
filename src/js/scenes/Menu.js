@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
 
+import football from '../../assets/football.jpg'
+
 const COLOR_LIGHT = 0xEF233C;
 
 const createButton = function (scene, text) {
@@ -34,18 +36,19 @@ class Menu extends Phaser.Scene {
   }
 
   create() {
+    this.load.image('football', football);
     const expand = true;
     const buttons = new Buttons(this, {
       x: 400,
       y: 300,
       width: 300,
       orientation: 'y',
-      space: 50,
+      space: 25,
 
       buttons: [
-        createButton(this, 'A'),
-        createButton(this, 'B'),
-        createButton(this, 'C'),
+        createButton(this, 'Singleplayer'),
+        createButton(this, 'Multiplayer'),
+        createButton(this, 'Options'),
       ],
 
       expand,
