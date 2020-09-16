@@ -1,20 +1,22 @@
-import Phaser from "phaser";
+import Phaser from 'phaser';
 
-import Menu from './scenes/menu';
+import PvP from './scenes/PvP';
 
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    canvas: document.getElementById("game"),
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true,
-            gravity: { y: 500 }
-        }
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  canvas: document.getElementById('game'),
+  physics: {
+    default: 'arcade',
+    arcade: {
+      debug: true,
+      gravity: { y: 500 },
     },
-    scene: [Menu] 
+  },
+  scene: [PvP],
 };
 
-var game = new Phaser.Game(config);
+// const game =
+// eslint-disable-next-line no-new
+new Phaser.Game(config);
