@@ -9,9 +9,18 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://github.com/gerwant/KickHeads",
+  "scripts": {
+    "build": "parcel build index.html",
+    "format": "eslint --fix \"src/**/*.js\"",
+    "lint": "eslint \"src/**/*.js\"",
+    "start": "parcel ./index.html --open"
+  },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-connect": "^3.0.0",
-    "grunt-contrib-watch": "^1.1.0"
+    "eslint": "^7.9.0",
+    "eslint-plugin-import": "^2.22.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "phaser": "^3.24.1"
   }
 }
