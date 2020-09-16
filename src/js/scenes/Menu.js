@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
 
-const COLOR_LIGHT = 0xFF00FF;
+const COLOR_LIGHT = 0xEF233C;
 
 const createButton = function (scene, text) {
   const rr = new RoundRectangle(scene, 0, 0, 0, 0, 20, COLOR_LIGHT);
@@ -11,7 +11,8 @@ const createButton = function (scene, text) {
     height: 40,
     background: scene.add.existing(rr),
     text: scene.add.text(0, 0, text, {
-      fontSize: 18,
+      fontSize: 20,
+      fontFamily: 'Arial'
     }),
     space: {
       left: 10,
@@ -38,12 +39,13 @@ class Menu extends Phaser.Scene {
       x: 400,
       y: 300,
       width: 300,
-      orientation: 'x',
+      orientation: 'y',
+      space: 50,
 
       buttons: [
         createButton(this, 'A'),
         createButton(this, 'B'),
-        createButton(this, 'c'),
+        createButton(this, 'C'),
       ],
 
       expand,
