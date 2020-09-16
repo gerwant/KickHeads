@@ -32,18 +32,21 @@ class Menu extends Phaser.Scene {
   }
 
   preload() {
-
+    this.load.image('football', football);
   }
 
   create() {
-    this.load.image('football', football);
+    let background = this.add.image(0,0, 'football');
+    background.setOrigin(0,0);
+    background.setScale(0.939,1.25);
+    
     const expand = true;
     const buttons = new Buttons(this, {
       x: 400,
       y: 300,
       width: 300,
       orientation: 'y',
-      space: 25,
+      space: 30,
 
       buttons: [
         createButton(this, 'Singleplayer'),
