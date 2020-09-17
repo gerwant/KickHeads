@@ -57,6 +57,12 @@ class Menu extends Phaser.Scene {
       expand,
     }).layout();
 
+    buttons.on('button.click', (button, index, pointer, event) => {
+      console.log('Clicked', button.text);
+      this.scene.stop();
+      this.scene.launch('PvP')
+    })
+
     this.add.existing(buttons);
   }
 

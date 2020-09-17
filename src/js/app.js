@@ -15,7 +15,7 @@ const config = {
       gravity: { y: 500 },
     },
   },
-  scene: [Menu],
+  scene: [Menu, PvP],
 };
 
 // const game =
