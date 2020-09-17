@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
-
 import football from '../../assets/football.jpg'
+import options_window from '../../assets/options_window.png'
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -24,6 +24,30 @@ const createButton = function (scene, text) {
   });
 };
 
+
+class Options extends Phaser.Scene {
+
+  constructor (handle, parent)
+  {
+      super(handle);
+      this.parent = parent;
+  }
+
+  create ()
+  {
+      var bg = this.add.image(200, 50, 'options_window').setOrigin(0);
+
+  }
+
+  refresh ()
+  {
+      // this.cameras.main.setPosition(this.parent.x, this.parent.y);
+      // this.scene.bringToTop();
+  }
+
+}
+
+
 class Menu extends Phaser.Scene {
   constructor() {
     super({
@@ -33,6 +57,7 @@ class Menu extends Phaser.Scene {
 
   preload() {
     this.load.image('football', football);
+    this.load.image('options_window', options_window);
   }
 
   create() {
@@ -56,15 +81,34 @@ class Menu extends Phaser.Scene {
 
       expand,
     }).layout();
-
     buttons.on('button.click', (button, index, pointer, event) => {
       console.log('Clicked', button.text);
-      this.scene.stop();
-      this.scene.launch('PvP')
-    })
+      if (button.text == 'Singleplayer') {
+        this.scene.stop();
+        this.scene.launch('PvP')
+      }
+
+      else if (button.text == 'Options') {
+        this.createWindow(Options);
+      }
+      
+    })  
 
     this.add.existing(buttons);
   }
+
+  createWindow (func)
+    {
+        var x = 100;
+        var y = 100;
+
+        var handle = 'window' + this.count++;
+
+        var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+
+        var demo = new func(handle, win);
+        this.scene.add(handle, demo, true);
+    }
 
   update() {
 
