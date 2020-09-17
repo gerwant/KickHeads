@@ -1,6 +1,10 @@
 import Phaser from 'phaser';
 
 import wizball from '../../assets/wizball.png';
+import background from '../../assets/pvp_background.jpg';
+import crossbar from '../../assets/crossbar.png';
+import net from '../../assets/net.png';
+
 
 class PvP extends Phaser.Scene {
   constructor() {
@@ -9,9 +13,16 @@ class PvP extends Phaser.Scene {
 
   preload() {
     this.load.image('wizball', wizball);
+    this.load.image('background', background);
+    this.load.image('crossbar', crossbar);
+    this.load.image('net', net);
   }
 
   create() {
+    
+    this.image = this.add.sprite(400, 300, 'background');
+    this.image.setScale(2, 2);
+    
     this.player1 = this.physics.add.sprite(100, 700, 'wizball');
     this.player2 = this.physics.add.sprite(700, 700, 'wizball');
     this.ball = this.physics.add.sprite(300, 0);
@@ -19,6 +30,13 @@ class PvP extends Phaser.Scene {
     this.player1.setCircle(46);
     this.player2.setCircle(46);
     this.ball.setCircle(20);
+    this.crossbars = this.physics.add.staticGroup();
+
+    this.crossbars.create(50, 390, 'crossbar');
+    this.crossbars.create(750, 390, 'crossbar');
+
+
+    this.crossbars.setVisible(false)
 
     this.player1.setCollideWorldBounds(true);
     this.player2.setCollideWorldBounds(true);
@@ -35,11 +53,19 @@ class PvP extends Phaser.Scene {
     this.physics.add.collider(this.player1, this.player2);
     this.physics.add.collider(this.ball, this.player2);
     this.physics.add.collider(this.ball, this.player1);
+    this.physics.add.collider(this.crossbars, this.ball);
+    this.physics.add.collider(this.crossbars, this.player1);
+    this.physics.add.collider(this.crossbars, this.player2);
 
     this.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.net1 = this.add.sprite(755, 495,'net')
+    this.net2 = this.add.sprite(45, 495,'net')
+    this.net1.setScale(0.3, 0.3)
+    this.net2.setScale(-0.3, 0.3)
   }
+
 
   update() {
     this.cursors = this.input.keyboard.createCursorKeys();
