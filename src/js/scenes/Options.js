@@ -23,8 +23,9 @@ class Options extends Phaser.Scene {
 }
 
 export default Options; */
-import { Slider } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
-import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
+import Phaser from 'phaser';
+import { Slider } from 'phaser3-rex-plugins/templates/ui/ui-components';
+import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle';
 import Close from '../../assets/close.png';
 
 const COLOR_LIGHT = 0xEF233C;
