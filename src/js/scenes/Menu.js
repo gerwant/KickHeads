@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
-import football from '../../assets/football.jpg'
-import options_window from '../../assets/options_window.png'
+import football from '../../assets/football.jpg';
+
+import Options from './Options';
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -14,7 +15,7 @@ const createButton = function (scene, text) {
     background: scene.add.existing(rr),
     text: scene.add.text(0, 0, text, {
       fontSize: 20,
-      fontFamily: 'Arial'
+      fontFamily: 'Arial',
     }),
     space: {
       left: 10,
@@ -24,47 +25,24 @@ const createButton = function (scene, text) {
   });
 };
 
-
-class Options extends Phaser.Scene {
-
-  constructor (handle, parent)
-  {
-      super(handle);
-      this.parent = parent;
-  }
-
-  create ()
-  {
-      var bg = this.add.image(200, 50, 'options_window').setOrigin(0);
-
-  }
-
-  refresh ()
-  {
-      // this.cameras.main.setPosition(this.parent.x, this.parent.y);
-      // this.scene.bringToTop();
-  }
-
-}
-
-
 class Menu extends Phaser.Scene {
   constructor() {
     super({
       key: 'Menu',
     });
+
+    this.count = 0;
   }
 
   preload() {
     this.load.image('football', football);
-    this.load.image('options_window', options_window);
   }
 
   create() {
-    let background = this.add.image(0,0, 'football');
-    background.setOrigin(0,0);
-    background.setScale(0.939,1.25);
-    
+    const background = this.add.image(0, 0, 'football');
+    background.setOrigin(0, 0);
+    background.setScale(0.939, 1.25);
+
     const expand = true;
     const buttons = new Buttons(this, {
       x: 400,
@@ -83,35 +61,40 @@ class Menu extends Phaser.Scene {
     }).layout();
     buttons.on('button.click', (button, index, pointer, event) => {
       console.log('Clicked', button.text);
-      if (button.text == 'Singleplayer') {
+      if (button.text === 'Singleplayer') {
         this.scene.stop();
-        this.scene.launch('PvP')
-      }
-
-      else if (button.text == 'Options') {
+        this.scene.launch('PvP');
+      } else if (button.text === 'Options') {
+        // this.scene.launch('Options')
         this.createWindow(Options);
+        console.log(this.scene.key);
+        this.scene.pause();
       }
-      
-    })  
+    });
 
     this.add.existing(buttons);
   }
 
-  createWindow (func)
-    {
-        var x = 100;
-        var y = 100;
+  createWindow(func) {
+    const x = Phaser.Math.Between(400, 600);
+    const y = Phaser.Math.Between(64, 128);
 
-        var handle = 'window' + this.count++;
+    const handle = `window${this.count++}`;
 
-        var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+    const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
-        var demo = new func(handle, win);
-        this.scene.add(handle, demo, true);
-    }
+    const demo = new func(this.scene.key, win);
 
-  update() {
+    this.input.setDraggable(win);
 
+    win.on('drag', function (pointer, dragX, dragY) {
+      this.x = dragX;
+      this.y = dragY;
+
+      demo.refresh();
+    });
+
+    this.scene.add(handle, demo, true);
   }
 }
 
