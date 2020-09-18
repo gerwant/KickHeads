@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
-import football from '../../assets/football.jpg';
-import options_window from '../../assets/options_window.png';
+
+import football from '../../assets/football.jpg'
+import stadium from '../../assets/stadium.png'
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -33,14 +34,14 @@ class Menu extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('football', football);
-    this.load.image('options_window', options_window);
+    this.load.image('stadium', stadium);
   }
 
   create() {
-    let background = this.add.image(0,0, 'football');
+    let background = this.add.image(0,0, 'stadium');
     background.setOrigin(0,0);
-    background.setScale(0.939,1.25);
+    background.setScale(1.01,1.41);
+    
     const expand = true;
     const buttons = new Buttons(this, {
       x: 400,
