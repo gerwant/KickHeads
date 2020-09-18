@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
+
 import football from '../../assets/football.jpg';
+import stadium from '../../assets/stadium.png';
 
 import Options from './Options';
 
@@ -35,13 +37,13 @@ class Menu extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('football', football);
+    this.load.image('stadium', stadium);
   }
 
   create() {
-    const background = this.add.image(0, 0, 'football');
+    const background = this.add.image(0, 0, 'stadium');
     background.setOrigin(0, 0);
-    background.setScale(0.939, 1.25);
+    background.setScale(1.01, 1.41);
 
     const expand = true;
     const buttons = new Buttons(this, {
@@ -70,6 +72,9 @@ class Menu extends Phaser.Scene {
         console.log(this.scene.key);
         this.scene.pause();
       }
+      /* } else if (button.text === 'Options') {
+        this.scene.launch('Options');
+      } */
     });
 
     this.add.existing(buttons);
@@ -86,13 +91,6 @@ class Menu extends Phaser.Scene {
     const demo = new func(this.scene.key, win);
 
     this.input.setDraggable(win);
-
-    win.on('drag', function (pointer, dragX, dragY) {
-      this.x = dragX;
-      this.y = dragY;
-
-      demo.refresh();
-    });
 
     this.scene.add(handle, demo, true);
   }

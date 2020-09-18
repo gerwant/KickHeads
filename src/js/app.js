@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 import PvP from './scenes/PvP';
 import Menu from './scenes/Menu';
+import Options from './scenes/Options';
 
 const config = {
   type: Phaser.AUTO,
