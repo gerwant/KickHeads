@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 
 import PvP from './scenes/PvP';
 import Menu from './scenes/Menu';
+import Options from './scenes/Options';
+
 
 const config = {
   type: Phaser.AUTO,
@@ -15,7 +17,7 @@ const config = {
       gravity: { y: 500 },
     },
   },
-  scene: [Menu, PvP],
+  scene: [Menu, PvP, Options],
 };
 
 // const game =

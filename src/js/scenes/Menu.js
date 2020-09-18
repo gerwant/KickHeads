@@ -73,19 +73,6 @@ class Menu extends Phaser.Scene {
     this.add.existing(buttons);
   }
 
-  createWindow (func)
-    {
-        var x = 0;
-        var y = 0;
-
-        // var handle = 'window';
-
-        var win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
-
-        // var demo = new func(handle, win);
-        // this.scene.add(handle, demo, true);
-        this.scene.launch('Options');
-    }
 
   update() {
 
