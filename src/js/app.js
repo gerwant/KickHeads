@@ -13,7 +13,7 @@ const config = {
     default: 'arcade',
     arcade: {
       debug: true,
-      gravity: { y: 500 },
+      gravity: { y: 600 },
     },
   },
   scene: [Menu, PvP],
