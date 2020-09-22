@@ -26,7 +26,7 @@ export default Options; */
 import Phaser from 'phaser';
 import { Slider } from 'phaser3-rex-plugins/templates/ui/ui-components';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle';
-import Close from '../../assets/close.png';
+import Close from '../../assets/close.svg';
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -44,10 +44,10 @@ class Options extends Phaser.Scene {
   }
 
   create() {
-    const close = this.add.image(350, 20, 'Close').setOrigin(0, 0);
-    const optionsWindow = new RoundRectangle(this, 0, 0, 400, 500, 30, COLOR_LIGHT).setOrigin(0, 0);
-    const optionsText = this.add.text(0, 30, 'Options', { fontFamily: 'Arial', fontSize: 30, fontStyle: 'Bold' });
-    optionsText.x = (optionsWindow.width - optionsText.width) / 2;
+    const close = this.add.image(450, 20, 'Close').setOrigin(0, 0);
+    const optionsWindow = new RoundRectangle(this, 0, 0, 520, 475, 10, COLOR_LIGHT).setOrigin(0, 0);
+    const optionsText = this.add.text(0, 27, 'Options', { fontFamily: 'Arial', fontSize: 32, fontStyle: 'Bold' });
+    optionsText.x = (optionsWindow.width - optionsText.width) / 2;;
 
     const audioSettingsText = this.add.text(0, 0, 'Audio Settings', { fontFamily: 'Arial', fontSize: 18 });
 
@@ -74,20 +74,20 @@ class Options extends Phaser.Scene {
     audioSettingsText.x = (audioSettingsContainer.width - audioSettingsText.width) / 2;
     audioSettingsContainer.x = (optionsWindow.width - audioSettingsContainer.width) / 2;
 
-    const optionsContainer = this.add.container(200, 50, [
+    const optionsContainer = this.add.container(140, 62.5, [
       optionsWindow,
       optionsText,
       audioSettingsContainer,
       close,
     ]);
 
-    optionsContainer.setSize(400, 500);
-    optionsContainer.setInteractive(new Phaser.Geom.Rectangle(200, 50, 400, 500), Phaser.Geom.Rectangle.Contains);
-    console.log(masterVolumeLabel.y);
+    optionsContainer.setSize(520, 475);
+    optionsContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, 520, 475), Phaser.Geom.Rectangle.Contains);
+
 
     const masterVolumeSlider = new Slider(this, {
       x: 470,
-      y: 210,
+      y: 220,
       width: 150,
       height: 20,
       orientation: 'x',
@@ -109,7 +109,7 @@ class Options extends Phaser.Scene {
 
     const soundVolumeSlider = new Slider(this, {
       x: 470,
-      y: 260,
+      y: 270,
       width: 150,
       height: 20,
       orientation: 'x',
@@ -131,7 +131,7 @@ class Options extends Phaser.Scene {
 
     const effectsVolumeSlider = new Slider(this, {
       x: 470,
-      y: 310,
+      y: 320,
       width: 150,
       height: 20,
       orientation: 'x',

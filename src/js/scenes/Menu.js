@@ -2,10 +2,10 @@ import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
 
-import football from '../../assets/football.jpg';
 import stadium from '../../assets/stadium.png';
 
 import Options from './Options';
+import Multiplayer from './Multiplayer';
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -66,6 +66,11 @@ class Menu extends Phaser.Scene {
       if (button.text === 'Singleplayer') {
         this.scene.stop();
         this.scene.launch('PvP');
+      } else if (button.text === 'Multiplayer') {
+        // this.scene.launch('Options')
+        this.createWindow(Multiplayer);
+        console.log(this.scene.key);
+        this.scene.pause();
       } else if (button.text === 'Options') {
         // this.scene.launch('Options')
         this.createWindow(Options);

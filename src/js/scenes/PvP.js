@@ -5,13 +5,18 @@ import background from '../../assets/pvp_background.jpg';
 import crossbar from '../../assets/crossbar.png';
 import net from '../../assets/net.png';
 import ball from '../../assets/ball.png';
+import Pause from './Pause';
 
 const vel_limit = 20;
 let i = 0;
 
+
+
 class PvP extends Phaser.Scene {
   constructor() {
     super({ key: 'PvP' });
+
+    this.count = 0;
   }
   
   preload() {
@@ -23,6 +28,9 @@ class PvP extends Phaser.Scene {
   }
 
   create() {
+    
+
+
     this.image = this.add.sprite(400, 300, 'background');
     this.image.setScale(2, 2);
 
@@ -77,6 +85,30 @@ class PvP extends Phaser.Scene {
     this.net2 = this.add.sprite(45, 495, 'net');
     this.net1.setScale(0.3, 0.3);
     this.net2.setScale(-0.3, 0.3);
+
+
+    var menuButton = this.add.text(710, 20, 'Menu', { fontFamily: 'Arial', fontSize: 20, color: '#000000' });
+
+    menuButton.setInteractive().on('pointerdown', () => {
+        this.scene.pause();
+        this.createWindow(Pause);
+        console.log(this.scene.key);
+    });
+  }
+
+  createWindow(func) {
+    const x = Phaser.Math.Between(400, 600);
+    const y = Phaser.Math.Between(64, 128);
+
+    const handle = `window${this.count++}`;
+
+    const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+
+    const demo = new func(this.scene.key, win);
+
+    this.input.setDraggable(win);
+
+    this.scene.add(handle, demo, true);
   }
 
   update() {
