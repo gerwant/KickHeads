@@ -30,10 +30,10 @@ import Close from '../../assets/close.svg';
 
 const COLOR_LIGHT = 0xEF233C;
 
-class Options extends Phaser.Scene {
+class LocalGame extends Phaser.Scene {
   constructor(parent) {
     super({
-      key: 'Options',
+      key: 'LocalGame',
     });
 
     this.parent = parent;
@@ -82,6 +82,7 @@ class Options extends Phaser.Scene {
     ]);
 
     optionsContainer.setSize(520, 475);
+    optionsContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, 520, 475), Phaser.Geom.Rectangle.Contains);
 
 
     const masterVolumeSlider = new Slider(this, {
@@ -158,4 +159,4 @@ class Options extends Phaser.Scene {
   }
 }
 
-export default Options;
+export default LocalGame;

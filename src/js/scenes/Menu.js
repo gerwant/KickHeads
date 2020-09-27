@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
 import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle.js';
-
+import sound_on from '../../assets/sound_on.svg';
+import sound_off from '../../assets/sound_off.svg';
+import english from '../../assets/english.svg';
+import polish from '../../assets/polish.svg';
 import stadium from '../../assets/stadium.png';
-
 import Options from './Options';
 import Multiplayer from './Multiplayer';
 
@@ -38,6 +40,10 @@ class Menu extends Phaser.Scene {
 
   preload() {
     this.load.image('stadium', stadium);
+    this.load.image('sound_on', sound_on);
+    this.load.image('sound_off',sound_off);
+    this.load.image('english',english);
+    this.load.image('polish',polish);
   }
 
   create() {
@@ -83,15 +89,54 @@ class Menu extends Phaser.Scene {
     });
 
     this.add.existing(buttons);
+
+    var sound = this.add.image(20,20,'sound_on').setOrigin(0);
+
+    var language_1 = this.add.image(0,40,'polish').setOrigin(0);
+
+    const languageWindow = new RoundRectangle(this, 0, 0, 32,72, 16, 0xA2A4A2, 1).setOrigin(0, 0);
+    const languageContainer = this.add.container(70, 20, [
+      languageWindow,
+      language_1
+    ]);
+    languageContainer.setSize(24,24);
+    languageContainer.visible = false;
+    var language = this.add.image(70,20,'english').setOrigin(0);
+
+    sound.setInteractive().on('pointerdown', () => {
+      if (sound.texture.key === 'sound_on'){
+        sound.setTexture('sound_off');
+      } else if (sound.texture.key === 'sound_off'){
+        sound.setTexture('sound_on');
+      }
+    });
+
+    language.setInteractive().on('pointerdown', () => {
+      if (languageContainer.visible === true){
+        languageContainer.visible = false;
+      } else {
+        languageContainer.visible = true;
+      }
+      console.log(languageContainer.visible);
+
+    });
+
+    language_1.setInteractive().on('pointerdown', () => {
+      var temp = language_1.texture.key;
+      language_1.setTexture(language.texture.key);
+      language.setTexture(temp);
+      languageContainer.visible = false;
+      console.log(languageContainer.visible);
+
+    });
+
   }
 
   createWindow(func) {
-    const x = Phaser.Math.Between(400, 600);
-    const y = Phaser.Math.Between(64, 128);
 
     const handle = `window${this.count++}`;
 
-    const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+    const win = this.add.zone(0, 0, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
     const demo = new func(this.scene.key, win);
 

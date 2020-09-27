@@ -96,7 +96,7 @@ class Pause extends Phaser.Scene {
     }).layout();
     
     optionsContainer.setSize(520, 475);
-    optionsContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, 520, 475), Phaser.Geom.Rectangle.Contains);
+    
 
     
 
@@ -135,12 +135,10 @@ class Pause extends Phaser.Scene {
   }
   
   createWindow(func) {
-    const x = Phaser.Math.Between(400, 600);
-    const y = Phaser.Math.Between(64, 128);
 
     const handle = `window${this.count++}`;
 
-    const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+    const win = this.add.zone(0, 0, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
     const demo = new func(this.scene.key, win);
 

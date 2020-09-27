@@ -28,6 +28,7 @@ import { Buttons, Label } from 'phaser3-rex-plugins/templates/ui/ui-components.j
 import RoundRectangle from 'phaser3-rex-plugins/plugins/roundrectangle';
 import Close from '../../assets/close.svg';
 import Options from './Options';
+import LocalGame from './LocalGame';
 
 const COLOR_LIGHT = 0xEF233C;
 
@@ -78,6 +79,12 @@ class Multiplayer extends Phaser.Scene {
       close
     ]);
 
+    
+    
+    optionsContainer.setSize(520, 475);
+
+    
+
     const expand = true;
     const buttons = new Buttons(this, {
       x: 400,
@@ -87,21 +94,31 @@ class Multiplayer extends Phaser.Scene {
       space: 30,
 
       buttons: [
+        createButton(this, 'Singleplayer'),
         createButton(this, 'Local Game'),
-        createButton(this, 'Online Game'),
+        createButton(this, 'Options'),
       ],
 
       expand,
     }).layout();
-    
-    optionsContainer.setSize(520, 475);
-    optionsContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, 520, 475), Phaser.Geom.Rectangle.Contains);
-
-    
-
     buttons.on('button.click', (button, index, pointer, event) => {
-        console.log('Clicked', button.text);
-      });
+      console.log('Clicked', button.text);
+      if (button.text === 'Singleplayer') {
+        this.createWindow(LocalGame);
+        console.log(this.scene.key);
+        this.scene.pause();
+      } else if (button.text === 'Local Game') {
+        // this.scene.launch('Options')
+        this.createWindow(LocalGame);
+        console.log(this.scene.key);
+        this.scene.pause();
+      } else if (button.text === 'Options') {
+        // this.scene.launch('Options')
+        this.createWindow(Options);
+        console.log(this.scene.key);
+        this.scene.pause();
+      }
+    });
 
     this.add.existing(buttons);
 
@@ -115,12 +132,9 @@ class Multiplayer extends Phaser.Scene {
   }
   
   createWindow(func) {
-    const x = Phaser.Math.Between(400, 600);
-    const y = Phaser.Math.Between(64, 128);
-
     const handle = `window${this.count++}`;
 
-    const win = this.add.zone(x, y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+    const win = this.add.zone(0, 0, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
 
     const demo = new func(this.scene.key, win);
 
