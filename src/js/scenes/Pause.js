@@ -88,6 +88,7 @@ class Pause extends Phaser.Scene {
 
       buttons: [
         createButton(this, 'Resume'),
+        createButton(this, 'Restart'),
         createButton(this, 'Options'),
         createButton(this, 'Quit to Main Menu'),
       ],
@@ -106,11 +107,14 @@ class Pause extends Phaser.Scene {
             this.scene.resume(this.parent);
             this.scene.remove();
             console.log(this.scene.key);
+        } else if (button.text === 'Restart') {
+            this.scene.start('PvP');
+            this.scene.remove();
         } else if (button.text === 'Options') {
             // this.scene.launch('Options')
             this.createWindow(Options);
             console.log(this.scene.key);
-            this.scene.pause();
+            this.scene.pause(); 
         } else if(button.text === 'Quit to Main Menu') {
             console.log(this.scene.key);
             console.log(this.scene.key);
