@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 import PvP from './scenes/PvP';
+import PvP_backup from './scenes/PvP_backup';
 import Menu from './scenes/Menu';
 import Options from './scenes/Options';
 
@@ -9,16 +10,25 @@ const config = {
   width: 800,
   height: 600,
   canvas: document.getElementById('game'),
+  // physics: {
+  //   default: 'arcade',
+  //   arcade: {
+  //     debug: true,
+  //     gravity: { y: 600 },
+  //   },
+  // },
   physics: {
-    default: 'arcade',
-    arcade: {
-      debug: true,
-      gravity: { y: 600 },
-    },
+    default: 'matter',
+    matter: {
+        debug: true,
+        // gravity: {
+        //     y: 0.1
+        // }
+    }
   },
-  scene: [Menu, PvP],
+  scene: [Menu, PvP, PvP_backup],
 };
 
 // const game =
 // eslint-disable-next-line no-new
-new Phaser.Game(config);
+var game = new Phaser.Game(config);
